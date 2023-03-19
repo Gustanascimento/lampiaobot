@@ -12,8 +12,8 @@ class ChatOpenAI():
   def __init__(self, model: str = 'gpt-3.5-turbo') -> None:
     self.model = model
     self.message_image_generator = [
-        {"role": "system", "content": "você é um sistema que escreve pequenos textos para gerar imagens para jogar jogos de adivinhação"}
-      , {"role": "user", "content": 'Escreva um texto para gerar uma imagem no jogo'}
+        {"role": "system", "content": "you are a system that writes small texts to generate images to play guessing games"}
+      , {"role": "user", "content": "create a sentence in a simple and descriptive way about an image that is difficult to get right but contextualized and realistic"}
     ]
 
   def make_text(self):
@@ -24,8 +24,7 @@ class ChatOpenAI():
 
     return completion['choices'][0]['message']['content']
 
-
-chatopenai = ChatOpenAI()
-
-res = chatopenai.make_text()
-print(res)
+if __name__ == "__main__":
+  chatopenai = ChatOpenAI()
+  res = chatopenai.make_text()
+  print(res)
