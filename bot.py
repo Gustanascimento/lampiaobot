@@ -90,7 +90,7 @@ _Disciplina de Criatividade Computacional - IF866_ 👨‍🎓"
 
 if __name__ == "__main__":
     load_dotenv()
-    token = os.getenv("TOKEN")
+    token = os.getenv("TELEGRAM_TOKEN")
     logger.critical(f'token: {token}')
 
     bot = TelegramBot(token)
