@@ -48,8 +48,11 @@ _Disciplina de Criatividade Computacional - IF866_ 👨‍🎓"
                 self.bot.send_message(self.chat_id, f"Gerando imagem via stable diffusion...")
                 sleep(1)
                 #sd
-                with open('bpmn.png', 'rb') as photo:
-                    self.bot.send_photo(self.chat_id, photo, caption="Aqui está! Qual prompt você acredita que o ChatGPT enviou ao Stable Diffusion para que essa imagem fosse gerada?")
+
+                url = "https://replicate.delivery/pbxt/qyIwlGnuIp4jEhoF9FdkgPURAp3NpZjoxBe1Hw8KwwO6lhUIA/out-0.png"
+                image_request = requests.get(url)
+
+                self.bot.send_photo(self.chat_id, image_request.content, caption="Aqui está! Qual prompt você acredita que o ChatGPT enviou ao Stable Diffusion para que essa imagem fosse gerada?")
                 sleep(10)
                 
                 self.bot.send_message(self.chat_id, f"Tempo esgotado! Calculando pontuações...")
