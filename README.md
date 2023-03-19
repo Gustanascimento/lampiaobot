@@ -1,6 +1,6 @@
 ## LampiãoBot
 
-> Olá! Eu sou o Lampião 😃 (Linguagem Automatizada de Mensagens Processadas em Interface Ágil Online)
+> Olá! Eu sou o Lampião (Linguagem Automatizada de Mensagens Processadas em Interface Ágil Online) - Um bot no Telegram 😃
 ---
 O desenvolvimento deste readme é um trabalho em progresso, ainda há muito a melhorar
 
