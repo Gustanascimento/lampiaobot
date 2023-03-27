@@ -5,7 +5,6 @@ from loguru import logger
 from time import sleep
 from traceback import print_exc, format_exc
 
-from googletrans import Translator
 from ChatOpenAI import ChatOpenAI
 from StableDiffusion import StableDiffusion
 
@@ -13,7 +12,6 @@ class TelegramBot:
     def __init__(self, token):
         self.logger = logger
         self.bot = TeleBot(token)
-        self.translator = Translator()
         self.players_answers = {}
         self.chat_id = None
         self.has_started = False
