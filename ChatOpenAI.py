@@ -12,8 +12,8 @@ class ChatOpenAI():
   def __init__(self, model: str = 'gpt-3.5-turbo') -> None:
     self.model = model
     self.message_image_generator = [
-        {"role": "system", "content": "you are a system that writes small texts to generate images to play guessing games"}
-      , {"role": "user", "content": "create a sentence in a simple and descriptive way about an image that is difficult to get right but contextualized and realistic"}
+        {"role": "system", "content": "you are a system that writes random and small texts to generate images to play guessing games. you send the answer as two strings: the first is the sentence in english and the second is in portuguese."}
+      , {"role": "user", "content": "create a random sentence in a simple and descriptive way about an image. it could be an oil paiting, or a drawing, or realistic, or funny"}
     ]
 
   def make_text(self):
