@@ -72,9 +72,9 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
 
                     try:
                         english_prompt = chatgpt_prompt.split("\n\n")[0]
-                        english_prompt = english_prompt.replace("English:", "").split()
+                        english_prompt = english_prompt.replace("English:", "").strip()
                         portuguese_prompt = chatgpt_prompt.split("\n\n")[1]
-                        portuguese_prompt = portuguese_prompt.replace("Portuguese:", "").split()
+                        portuguese_prompt = portuguese_prompt.replace("Portuguese:", "").strip()
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro na tradução: {e}. Por favor submita a resposta em inglês!")
