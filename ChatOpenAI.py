@@ -12,14 +12,21 @@ class ChatOpenAI():
   
   def __init__(self, model: str = 'gpt-3.5-turbo') -> None:
     self.prompt_list = [
-      "create a very random phrase simply and directly over an image.",
-      "create a short and simple sentence with a random animal, year and historical place with easy words."
+      "create a very random phrase simply and directly over an image",
+      "create a short and simple sentence with a random animal, year and historical place with easy words",
+      "create a sentence with a famous person in a place and a purpose in a short form"
+    ]
+
+    self.prompt_art = [
+      ", like a oil painting",
+      ", like a drawing",
+      ", like a funny picture"
     ]
 
     self.model = model
     self.message_image_generator = [
         {"role": "system", "content": "you are a system that writes random and small texts to generate images to play guessing games. you send the answer as two strings: the first is the sentence in english and the second is in portuguese."}
-      , {"role": "user", "content": random.choice(self.prompt_list) + " It could be an oil painting, or a drawing or funny"}
+      , {"role": "user", "content": random.choice(self.prompt_list) + {self.prompt_art}}
     ]
 
   def make_text(self):

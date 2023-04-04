@@ -42,6 +42,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
 
         @self.bot.message_handler(commands=['start'])
         def start_game(message):
+            theme = message.text.split()[1] if len(message.text.split()) > 1 else None
             self.chat_id = message.chat.id
 
             if self.has_started:
@@ -82,7 +83,10 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.bot.send_message(self.chat_id, f"Gerando imagem via stable diffusion... 🖼️")
 
                     try:
-                        imagem = self.stablediffusion.predict(text=english_prompt)
+                        if theme is "":
+                            imagem = self.stablediffusion.predict(text=english_prompt)
+                        else:
+                            imagem = self.stablediffusion.predict(text=f'{english_prompt} with {theme} as a subject')
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro: {e}")
