@@ -61,7 +61,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.bot.send_message(self.chat_id, f"Aguarde... o ChatGPT está gerando um prompt 💬")
 
                     try:
-                        chatgpt_prompt = self.chatopenai.make_text()
+                        chatgpt_prompt = self.chatopenai.make_text(theme)
                         self.logger.debug(f"Prompt gerado: {chatgpt_prompt}")
                     except Exception as e:
                         print_exc()
@@ -83,10 +83,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.bot.send_message(self.chat_id, f"Gerando imagem via stable diffusion... 🖼️")
 
                     try:
-                        if theme is "":
-                            imagem = self.stablediffusion.predict(text=english_prompt)
-                        else:
-                            imagem = self.stablediffusion.predict(text=f'{english_prompt} with {theme} as a subject')
+                        imagem = self.stablediffusion.predict(text=english_prompt)
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro: {e}")
@@ -104,7 +101,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.accepting_answers = True
                     sleep(3)
 
-                    for seconds in reversed(range(30)):
+                    for seconds in reversed(range(5)):
                         if seconds == 29:
                             self.bot.send_message(self.chat_id, f"30 segundos restantes ⏰")
 

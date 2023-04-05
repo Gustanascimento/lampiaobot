@@ -11,6 +11,7 @@ class ChatOpenAI():
   openai.Model.list()
   
   def __init__(self, model: str = 'gpt-3.5-turbo') -> None:
+    
     self.prompt_list = [
       "create a very random phrase simply and directly over an image",
       "create a short and simple sentence with a random animal, year and historical place with easy words",
@@ -23,13 +24,19 @@ class ChatOpenAI():
       ", like a funny picture"
     ]
 
+    self.content = "another theme " + random.choice(self.prompt_list) + random.choice(self.prompt_art)
+    
     self.model = model
     self.message_image_generator = [
         {"role": "system", "content": "you are a system that writes random and small texts to generate images to play guessing games. you send the answer as two strings: the first is the sentence in english and the second is in portuguese."}
-      , {"role": "user", "content": random.choice(self.prompt_list) + {self.prompt_art}}
+      , {"role": "user", "content": self.content}
     ]
 
-  def make_text(self):
+
+
+  def make_text(self, theme):
+    if theme:
+      self.content = f'{random.choice(self.prompt_list)} {random.choice(self.prompt_art)} with {theme} as subject'
     completion = openai.ChatCompletion.create(
     model = self.model,
     messages = self.message_image_generator
