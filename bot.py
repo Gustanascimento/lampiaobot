@@ -1,4 +1,3 @@
-import os
 from dotenv import load_dotenv
 from telebot import TeleBot, apihelper
 from loguru import logger
@@ -7,6 +6,11 @@ from traceback import print_exc, format_exc
 
 from ChatOpenAI import ChatOpenAI
 from StableDiffusion import StableDiffusion
+from Pinecone import PineconeEmbedder
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 class TelegramBot:
     def __init__(self, token):
@@ -18,6 +22,7 @@ class TelegramBot:
         self.accepting_answers = False
         self.chatopenai = None
         self.stablediffusion = None
+        self.embedder = None
 
     
     def send_help_message(self, message):
@@ -53,6 +58,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                 self.players_answers = {}
                 self.chatopenai = ChatOpenAI()
                 self.stablediffusion = StableDiffusion()
+                self.embedder = PineconeEmbedder()
 
                 while self.has_started:
                     self.logger.info(f"Round has been started!")
@@ -69,21 +75,10 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                         self.has_started = False
                         break
 
-                    try:
-                        english_prompt = chatgpt_prompt.split("\n\n")[0]
-                        english_prompt = english_prompt.replace("English:", "").strip()
-                        portuguese_prompt = chatgpt_prompt.split("\n\n")[1]
-                        portuguese_prompt = portuguese_prompt.replace("Portuguese:", "").strip()
-                    except Exception as e:
-                        print_exc()
-                        self.bot.send_message(self.chat_id, f"Ocorreu um erro na tradução: {e}. Por favor submita a resposta em inglês!")
-                        english_prompt = chatgpt_prompt
-                        portuguese_prompt = chatgpt_prompt
-
                     self.bot.send_message(self.chat_id, f"Gerando imagem via stable diffusion... 🖼️")
 
                     try:
-                        imagem = self.stablediffusion.predict(text=english_prompt)
+                        imagem = self.stablediffusion.predict(text=chatgpt_prompt)
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro: {e}")
@@ -101,7 +96,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.accepting_answers = True
                     sleep(3)
 
-                    for seconds in reversed(range(5)):
+                    for seconds in reversed(range(30)):
                         if seconds == 29:
                             self.bot.send_message(self.chat_id, f"30 segundos restantes ⏰")
 
@@ -114,18 +109,16 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                         self.logger.debug(f"Timer: {seconds}s")
                         sleep(1)
                     
-                    self.bot.send_message(self.chat_id, f"Tempo esgotado! 🍃 Prompt original: *{portuguese_prompt}*", parse_mode="Markdown")
+                    self.bot.send_message(self.chat_id, f"Tempo esgotado! 🍃 Prompt original: *{chatgpt_prompt}*", parse_mode="Markdown")
                     self.bot.send_message(self.chat_id, f"Calculando pontuações...")
                     self.accepting_answers = False
 
                     if self.players_answers == {}:
                         self.bot.send_message(self.chat_id, f"Nenhum jogador submeteu uma resposta a tempo! 😥")
-                        self.bot.send_message(self.chat_id, f"O prompt havia sido: {portuguese_prompt}")
                     else:
-                        #embeddeds
-                        # translated_prompt
+                        answers = self.embedder.embed_sentences(original_prompt=chatgpt_prompt, answers=self.players_answers)
 
-                        for player in self.players_answers:
+                        for player in answers:
                             print(f"{player} --> {self.players_answers[player]}")
                             self.bot.send_message(self.chat_id, f"{player} --> {self.players_answers[player]}")
                         
