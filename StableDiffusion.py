@@ -1,9 +1,11 @@
-import os
-import dotenv
 from dotenv import load_dotenv
 import replicate
 import requests
 
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+from dotenv import load_dotenv
 load_dotenv()
 
 REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
