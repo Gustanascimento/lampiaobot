@@ -11,6 +11,9 @@ requests = "*"
 openai = "*"
 replicate = "*"
 googletrans = "*"
+pinecone-client = "*"
+tensorflow-hub = "*"
+tensorflow = "*"
 
 [dev-packages]
 
