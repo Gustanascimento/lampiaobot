@@ -14,6 +14,7 @@ googletrans = "*"
 pinecone-client = "*"
 tensorflow-hub = "*"
 tensorflow = "*"
+sklearn = "*"
 
 [dev-packages]
 
