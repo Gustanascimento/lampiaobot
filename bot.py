@@ -116,14 +116,26 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     if self.players_answers == {}:
                         self.bot.send_message(self.chat_id, f"Nenhum jogador submeteu uma resposta a tempo! 😥")
                     else:
-                        answers = self.embedder.embed_sentences(original_prompt=chatgpt_prompt, answers=self.players_answers)
+                        try:
+                            answers = self.embedder.embed_sentences(original_prompt=chatgpt_prompt, answers=self.players_answers)
+                        except Exception as e:
+                            print_exc()
+                            self.bot.send_message(self.chat_id, f"Ocorreu um erro: {e}")
+                            self.has_started = False
+                            break
 
-                        for player in answers:
-                            print(f"{player} --> {self.players_answers[player]}")
-                            self.bot.send_message(self.chat_id, f"{player} --> {self.players_answers[player]}")
+                        reply = "*Ranking:*\n"
                         
-                        
-                        self.bot.send_message(self.chat_id, f"Ranking:")
+                        for index, answer in enumerate(answers):
+
+                            if not index:
+                                reply += f'O jogador *{answer[0]}* obteve a maior pontuação ({round(answer[2]*100,2)}%) com a resposta: *"{answer[1]}"*. Parabéns! 🥳\n' 
+                                reply += f"Demais colocações:\n"
+                            else:
+                                reply += f"*{index+1}*º - {answer[0]}: {round(answer[2]*100,2)}%\n"
+
+                
+                        self.bot.send_message(self.chat_id, reply, parse_mode='Markdown')
                     
                     self.logger.success(f'Round has finished successfully!')
                     self.has_started = False
@@ -139,7 +151,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
         @self.bot.message_handler(func=lambda message: True)
         def handle_messages(message):
             chat_id = message.chat.id
-            username = message.from_user.username
+            username = message.from_user.full_name
             self.logger.info(f"Received message '{message.text}' from user: '{username}' | ID: '{message.from_user.id}' in chat '{chat_id}'")
 
             if self.accepting_answers:
