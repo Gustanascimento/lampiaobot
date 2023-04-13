@@ -67,10 +67,13 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                     self.bot.send_message(self.chat_id, f"Aguarde... o ChatGPT está gerando um prompt 💬")
 
                     try:
-                        chatgpt_prompt = self.chatopenai.make_text(theme)
-                        chatgpt_prompt_ptbr = self.chatopenai.translate_text(chatgpt_prompt)
-                        self.logger.debug(f"Prompt gerado (EN): {chatgpt_prompt}")
-                        self.logger.debug(f"Prompt gerado (PT-BR): {chatgpt_prompt_ptbr}")
+                        # Gerar tema simples
+                        chatgpt_prompt = self.chatopenai.make_text(mode = 'THEME', text = theme)
+                        # Traduzir tema simples
+                        chatgpt_prompt_ptbr = self.chatopenai.make_text(mode = 'TRANSLATE', text = chatgpt_prompt)
+
+                        self.logger.debug(f"Prompt gerado (EN): {chatgpt_prompt}\n")
+                        self.logger.debug(f"Prompt gerado (PT-BR): {chatgpt_prompt_ptbr}\n")
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro: {format_exc()}")
