@@ -2,7 +2,7 @@ import openai
 from openai.embeddings_utils import get_embedding
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np 
-import pinecone
+# import pinecone
 
 # embedding model parameters
 embedding_model = "text-embedding-ada-002"

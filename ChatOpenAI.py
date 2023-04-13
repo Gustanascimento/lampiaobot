@@ -54,19 +54,35 @@ class ChatOpenAI():
     ]
   
 
-  def generate_message(self, theme):
+  def generate_message(self, mode, text = None):
 
-    if theme:
-      content = random.choice(self.prompt_list) + ", with the theme " + theme +random.choice(self.prompt_art) 
-    else:
-      content = random.choice(self.prompt_list) + random.choice(self.prompt_art) 
+    if mode == 'THEME':
+      content = random.choice(self.prompt_list) + ", with the theme " + text +random.choice(self.prompt_art) if text else \
+                random.choice(self.prompt_list) + random.choice(self.prompt_art)
+      
+      messages=[
+        {"role": "system", "content": f"you are a robot that writes random, small and simple texts to generate images to play guessing games with the theme {text}"},
+        {"role": "user", "content": content},
+      ]
+
+    # if mode == 'THEME' and text:
+    #   content = random.choice(self.prompt_list) + ", with the theme " + text +random.choice(self.prompt_art) 
+    # elif mode == 'THEME' and not text:
+    #   content = random.choice(self.prompt_list) + random.choice(self.prompt_art) 
+    elif mode == 'TRANSLATE':
+      content = f'Me retorne somente o texto entre aspas traduzido para o português: "{text}"'
+
+      messages=[
+        {"role": "system", "content": f"you are a robot that only returns a text translated from English to Portuguese"},
+        {"role": "user", "content": content},
+      ]
 
     print("content:", content)
 
-    messages=[
-      {"role": "system", "content": f"you are a robot that writes random, small and simple texts to generate images to play guessing games with the theme {theme}"},
-      {"role": "user", "content": content},
-    ]
+    # messages=[
+    #   {"role": "system", "content": f"you are a robot that writes random, small and simple texts to generate images to play guessing games with the theme {text}"},
+    #   {"role": "user", "content": content},
+    # ]
 
     return messages
 
@@ -75,7 +91,16 @@ class ChatOpenAI():
     
     completion = openai.ChatCompletion.create(
       model = self.model,
-      messages = self.generate_message(theme),
+      messages = self.generate_message(mode = 'THEME', text = theme),
+      max_tokens = 100
+    )
+
+    return completion['choices'][0]['message']['content']
+  
+  def translate_text(self, text_en):
+    completion = openai.ChatCompletion.create(
+      model = self.model,
+      messages = self.generate_message(mode = 'TRANSLATE', text = text_en),
       max_tokens = 20
     )
 

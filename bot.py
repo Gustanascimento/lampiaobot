@@ -68,7 +68,9 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
 
                     try:
                         chatgpt_prompt = self.chatopenai.make_text(theme)
-                        self.logger.debug(f"Prompt gerado: {chatgpt_prompt}")
+                        chatgpt_prompt_ptbr = self.chatopenai.translate_text(chatgpt_prompt)
+                        self.logger.debug(f"Prompt gerado (EN): {chatgpt_prompt}")
+                        self.logger.debug(f"Prompt gerado (PT-BR): {chatgpt_prompt_ptbr}")
                     except Exception as e:
                         print_exc()
                         self.bot.send_message(self.chat_id, f"Ocorreu um erro: {format_exc()}")
@@ -109,7 +111,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                         self.logger.debug(f"Timer: {seconds}s")
                         sleep(1)
                     
-                    self.bot.send_message(self.chat_id, f"Tempo esgotado! 🍃 Prompt original: *{chatgpt_prompt}*", parse_mode="Markdown")
+                    self.bot.send_message(self.chat_id, f"Tempo esgotado! 🍃 Prompt original: *{chatgpt_prompt_ptbr}*", parse_mode="Markdown")
                     self.bot.send_message(self.chat_id, f"Calculando pontuações...")
                     self.accepting_answers = False
 
@@ -117,7 +119,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
                         self.bot.send_message(self.chat_id, f"Nenhum jogador submeteu uma resposta a tempo! 😥")
                     else:
                         try:
-                            answers = self.embedder.embed_sentences(original_prompt=chatgpt_prompt, answers=self.players_answers)
+                            answers = self.embedder.embed_sentences(original_prompt=chatgpt_prompt_ptbr, answers=self.players_answers)
                         except Exception as e:
                             print_exc()
                             self.bot.send_message(self.chat_id, f"Ocorreu um erro: {e}")
@@ -130,7 +132,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
 
                             if not index:
                                 reply += f'O jogador *{answer[0]}* obteve a maior pontuação ({round(answer[2]*100,2)}%) com a resposta: *"{answer[1]}"*. Parabéns! 🥳\n' 
-                                reply += f"Demais colocações:\n"
+                                reply += f"\nDemais colocações:\n"
                             else:
                                 reply += f"*{index+1}*º - {answer[0]}: {round(answer[2]*100,2)}%\n"
 
