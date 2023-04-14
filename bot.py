@@ -56,6 +56,8 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
             else:
                 self.has_started = True
                 self.players_answers = {}
+                del self.chatopenai
+
                 self.chatopenai = ChatOpenAI()
                 self.stablediffusion = StableDiffusion()
                 self.embedder = PineconeEmbedder()

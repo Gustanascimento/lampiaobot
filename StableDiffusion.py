@@ -13,13 +13,15 @@ REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 
 class StableDiffusion ():
     PROMPT_ART = [
-      ", maximalist pastel color palette, splatter paint, pixar and disney exploded - view drawing, clean cel shaded vector art, trending on artstation",
-      ", chakra colors, axonometric drawings, liminal diffusion, liminal spaces and environments, latent space environment chirality expression. think like a baby.",
+      ", chakra colors",
+      ", realistic, full hd",
+      ", funny drawing, think like a children",
+      ", chakra colors",
+      ", pencil drawing",
       ", cute children's drawing, amazingly good art, very detailed",
-      ", ultra detailed digital art, fine drawing, grunge, hyper real, 4 k, moody lighting, warm colors, shaded"
+      ", ultra detailed digital art, fine drawing, grunge, hyper real, 4 k, moody lighting, warm colors, shaded",
       ", book illustration"
-      ""
-    ]
+    ] 
 
     def __init__(self) -> None:
         self.model = replicate.models.get("stability-ai/stable-diffusion")

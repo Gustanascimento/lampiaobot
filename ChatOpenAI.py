@@ -16,10 +16,10 @@ class ChatOpenAI():
     self.model = 'gpt-3.5-turbo'
     
     self.prompt_list = [
-      "generate a challeging and not easy text",
-      "generate a text about an animal and a place",
-      "generate a text about a famous person and a place"
-      ''
+      "create a challeging and not easy short sentence",
+      "create a short sentence about an animal at a place",
+      "create a short sentence about a famous person at a place",
+      "create a short sentence with a celebrity person doing a random action"
     ]
 
   def generate_message(self, mode, text = None):
@@ -29,7 +29,7 @@ class ChatOpenAI():
                 random.choice(self.prompt_list) #+ random.choice(self.prompt_art)
       
       messages=[
-        {"role": "system", "content": f"you are a robot that writes random, small, tiny and simple texts to generate images to play guessing games"}, #  with the theme: {text}
+        {"role": "system", "content": f"you are a robot that writes small sentences to generate images to play guessing games"}, #  with the theme: {text}
         {"role": "user", "content": content},
       ]
     
@@ -41,7 +41,7 @@ class ChatOpenAI():
         {"role": "user", "content": content},
       ]
 
-    # print("content:", content)
+    print("ChatGPT Prompt:", content)
 
     return messages
 
@@ -50,8 +50,10 @@ class ChatOpenAI():
     
     completion = openai.ChatCompletion.create(
       model = self.model,
+      temperature=0.9,
+      frequency_penalty= 2.0,
+      presence_penalty=2.0,
       messages = self.generate_message(mode = mode, text = text),
-      # max_tokens = 100
     )
 
     return completion['choices'][0]['message']['content']
