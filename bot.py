@@ -6,7 +6,7 @@ from traceback import print_exc, format_exc
 
 from ChatOpenAI import ChatOpenAI
 from StableDiffusion import StableDiffusion
-from Pinecone import PineconeEmbedder
+from Embeddings import Embedder
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -60,7 +60,7 @@ _Disciplina de Criatividade Computacional \- IF866_ 👨‍🎓"
 
                 self.chatopenai = ChatOpenAI()
                 self.stablediffusion = StableDiffusion()
-                self.embedder = PineconeEmbedder()
+                self.embedder = Embedder()
 
                 while self.has_started:
                     self.logger.info(f"Round has been started!")

@@ -2,7 +2,6 @@ import openai
 from openai.embeddings_utils import get_embedding
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np 
-# import pinecone
 
 # embedding model parameters
 embedding_model = "text-embedding-ada-002"
@@ -15,7 +14,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from dotenv import load_dotenv
 load_dotenv()
 
-class PineconeEmbedder():
+class Embedder():
     def __init__(self) -> None:
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
