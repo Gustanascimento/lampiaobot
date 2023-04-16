@@ -59,6 +59,9 @@ python3 bot.py
 No telegram, envie o comando `/help` ou `/status` para o bot e confirme que ele respondeu com sucesso!
 
 ![alt text](Resources/help.png "Help message")
+---
+---
+> ## PS* Caso adicionado a um grupo, para que consiga visualizar as mensagens, o bot precisa ter sido atribuído o cargo de administrador do grupo!
 
 ---
 ```
