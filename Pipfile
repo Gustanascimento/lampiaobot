@@ -10,13 +10,11 @@ loguru = "*"
 requests = "*"
 openai = "*"
 replicate = "*"
-googletrans = "*"
-pinecone-client = "*"
-tensorflow-hub = "*"
-tensorflow = "*"
-sklearn = "*"
+pandas = "*"
+matplotlib = "*"
+plotly = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
