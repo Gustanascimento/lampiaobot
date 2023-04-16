@@ -9,7 +9,7 @@
 
 Criar um bot no telegram é muito simples, basta enviar o comando `/newbot` para [@BotFather](https://t.me/botfather) e seguir as etapas até receber um novo token.
 
-![alt text](resources/botfather.png "Criando um bot via BotFather")
+![alt text](Resources/botfather.png "Criando um bot via BotFather")
 
 O token ficará mais ou menos assim:
 ```shell
@@ -58,7 +58,7 @@ python3 bot.py
 ## 6. Validando a execução
 No telegram, envie o comando `/help` ou `/status` para o bot e confirme que ele respondeu com sucesso!
 
-![alt text](resources/help.png "Help message")
+![alt text](Resources/help.png "Help message")
 
 ---
 ```
