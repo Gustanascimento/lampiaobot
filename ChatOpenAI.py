@@ -19,7 +19,6 @@ class ChatOpenAI():
       "create a challeging and not easy short sentence",
       "create a short sentence about an animal at a place",
       "create a short sentence about a famous person at a place",
-      "create a short sentence with a celebrity person doing a random action"
     ]
 
   def generate_message(self, mode, text = None):
